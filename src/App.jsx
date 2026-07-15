@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import AuthForm from './components/AuthForm'
+import HabitList from './components/HabitList'
 import { supabase } from './lib/supabase'
 
 function App() {
@@ -39,16 +40,21 @@ function App() {
         <h1 className="mb-8 text-center text-3xl font-bold text-gray-900">Habit Tracker</h1>
 
         {session ? (
-          <div className="rounded-lg border border-gray-200 bg-white p-6 text-center shadow-sm">
-            <p className="mb-1 text-sm text-gray-500">Signed in as</p>
-            <p className="mb-6 font-medium text-gray-900">{session.user.email}</p>
-            <button
-              type="button"
-              onClick={handleSignOut}
-              className="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
-            >
-              Sign out
-            </button>
+          <div className="space-y-6">
+            <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-6 py-4 shadow-sm">
+              <div>
+                <p className="text-sm text-gray-500">Signed in as</p>
+                <p className="font-medium text-gray-900">{session.user.email}</p>
+              </div>
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
+              >
+                Sign out
+              </button>
+            </div>
+            <HabitList userId={session.user.id} />
           </div>
         ) : (
           <AuthForm />
